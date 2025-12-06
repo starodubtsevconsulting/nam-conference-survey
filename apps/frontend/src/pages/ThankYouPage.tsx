@@ -46,6 +46,38 @@ export default function ThankYouPage() {
             </a>
           </Text>
 
+          <Card
+            mt="xl"
+            padding="lg"
+            radius="md"
+            withBorder
+            style={{ backgroundColor: 'var(--mantine-color-gray-light)' }}
+          >
+            <Stack gap="md">
+              <Title order={3} size="h4" ta="center">
+                How we'll use your feedback
+              </Title>
+
+              <Text size="sm">
+                Your responses go directly to the conference organizing team, who review every
+                submission to understand what worked well and what could be better.
+              </Text>
+
+              <Text size="sm">
+                Within a few weeks after the conference, the team will analyze all feedback and
+                identify common themes and specific suggestions. This analysis directly shapes
+                decisions for future conferences—from session formats and networking opportunities
+                to venue choices and scheduling.
+              </Text>
+
+              <Text size="sm">
+                We're committed to transparency. You'll be able to see the results and our action
+                plan at the link above. Thank you for helping us create better conference
+                experiences.
+              </Text>
+            </Stack>
+          </Card>
+
           <Button
             variant="filled"
             color="equalBlue"
