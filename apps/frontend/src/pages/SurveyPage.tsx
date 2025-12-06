@@ -10,11 +10,14 @@ import {
   Loader,
   Center,
   Text,
+  Group,
+  Box,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconAlertCircle, IconCheck } from '@tabler/icons-react';
 import { ProgressIndicator } from '../components/ProgressIndicator';
 import { QuestionRenderer } from '../components/QuestionRenderer';
+import { ThemeToggle } from '../components/ThemeToggle';
 import { SurveyFormState } from '../types/survey';
 import { submitSurvey } from '../api/survey';
 import { SURVEY_QUESTIONS, TOTAL_QUESTIONS } from '../config/survey-questions';
@@ -141,21 +144,26 @@ export default function SurveyPage() {
   return (
     <Container size="md" py="xl">
       <Stack gap="xl">
-        {/* Header */}
-        <Stack align="center" gap="md">
-          <Image
-            src="https://www.equalexperts.com/wp-content/uploads/2024/10/2024-Logo.svg"
-            alt="Equal Experts"
-            h={60}
-            w="auto"
-          />
-          <Title order={1} ta="center" c="equalBlue.4">
-            NAM Conference Survey
-          </Title>
-          <Text size="lg" ta="center" c="dimmed">
-            Your feedback helps us improve future conferences. All questions are optional.
-          </Text>
-        </Stack>
+        {/* Header with Theme Toggle */}
+        <Box pos="relative">
+          <Box pos="absolute" top={0} right={0}>
+            <ThemeToggle />
+          </Box>
+          <Stack align="center" gap="md">
+            <Image
+              src="https://www.equalexperts.com/wp-content/uploads/2024/10/2024-Logo.svg"
+              alt="Equal Experts"
+              h={60}
+              w="auto"
+            />
+            <Title order={1} ta="center" c="equalBlue.4">
+              NAM Conference Survey
+            </Title>
+            <Text size="lg" ta="center" c="dimmed">
+              Your feedback helps us improve future conferences. All questions are optional.
+            </Text>
+          </Stack>
+        </Box>
 
         {/* Progress Indicator */}
         <ProgressIndicator answered={calculateAnswered()} total={TOTAL_QUESTIONS} />

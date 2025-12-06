@@ -1,4 +1,4 @@
-import { MantineThemeOverride, createTheme } from '@mantine/core';
+import { MantineThemeOverride, createTheme, MantineColorsTuple } from '@mantine/core';
 
 export const theme: MantineThemeOverride = createTheme({
   // Primary color: Equal Experts Blue
@@ -42,6 +42,19 @@ export const theme: MantineThemeOverride = createTheme({
       '#121415', // 8
       '#090a0a', // 9
     ],
+    // Dark mode color palette (Mantine standard dark colors with adjustments)
+    dark: [
+      '#C1C2C5', // 0 - lightest text
+      '#A6A7AB', // 1
+      '#909296', // 2
+      '#5C5F66', // 3
+      '#373A40', // 4 - borders
+      '#2C2E33', // 5
+      '#25262B', // 6 - secondary backgrounds
+      '#1A1B1E', // 7 - main background
+      '#141517', // 8
+      '#101113', // 9 - darkest
+    ] as MantineColorsTuple,
   },
 
   // Typography

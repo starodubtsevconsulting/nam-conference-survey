@@ -8,6 +8,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500&display=swap" rel="stylesheet">
+    <script>
+      // Prevent FOUC (Flash of Unstyled Content) by applying theme before React loads
+      (function() {
+        try {
+          const storedScheme = localStorage.getItem('nam-survey-color-scheme');
+          const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const colorScheme = storedScheme || (systemPrefersDark ? 'dark' : 'light');
+
+          // Apply data-mantine-color-scheme attribute to document element
+          document.documentElement.setAttribute('data-mantine-color-scheme', colorScheme);
+        } catch (e) {
+          // localStorage might be unavailable in private browsing mode
+          // Fallback to system preference
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-mantine-color-scheme', 'dark');
+          }
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
