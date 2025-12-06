@@ -30,15 +30,31 @@ export default function ThankYouPage() {
             appreciate you taking the time to share your thoughts.
           </Text>
 
-            <Button
-              variant="filled"
-              color="equalBlue"
-              size="lg"
-              component="a"
-              href="https://www.equalexperts.com"
+          <Text size="md" ta="center" fw={500} mt="md">
+            Results will be available after the conference
+          </Text>
+
+          <Text size="sm" ta="center" c="dimmed">
+            To access results, visit:{' '}
+            <a
+              href="https://www.equalexperts.com/nam-conference-results"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#1795d4', textDecoration: 'underline' }}
             >
-              Return to Equal Experts
-            </Button>
+              equalexperts.com/nam-conference-results
+            </a>
+          </Text>
+
+          <Button
+            variant="filled"
+            color="equalBlue"
+            size="lg"
+            component="a"
+            href="https://www.equalexperts.com"
+          >
+            Return to Conference Site
+          </Button>
           </Stack>
         </Box>
       </Card>
