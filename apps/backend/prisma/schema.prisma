@@ -25,9 +25,12 @@ model User {
 }
 
 model SurveyResponse {
-  id                           String   @id @default(uuid())
+  id                           String              @id @default(uuid())
   userId                       String
-  status                       Status   @default(SUBMITTED)
+  status                       Status              @default(SUBMITTED)
+
+  // Email for confirmation (optional, for anonymous surveys)
+  email                        String?
 
   // Q1: Overall Rating - Likert scale (1-5)
   q1OverallRating              Int?
@@ -101,14 +104,41 @@ model SurveyResponse {
   q19Name                      String?
   q19Location                  String?
 
-  createdAt                    DateTime @default(now())
-  updatedAt                    DateTime @updatedAt
-  user                         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt                    DateTime            @default(now())
+  updatedAt                    DateTime            @updatedAt
+  user                         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emailDeliveryLogs            EmailDeliveryLog[]
 
   @@index([userId])
   @@index([status])
   @@index([createdAt])
+  @@index([email])
   @@map("survey_responses")
+}
+
+model EmailDeliveryLog {
+  id                String        @id @default(uuid())
+  surveyResponseId  String
+  recipientEmail    String
+  status            EmailStatus   @default(PENDING)
+  messageId         String?
+  error             String?
+  sentAt            DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  surveyResponse    SurveyResponse @relation(fields: [surveyResponseId], references: [id], onDelete: Cascade)
+
+  @@index([surveyResponseId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("email_delivery_logs")
+}
+
+enum EmailStatus {
+  PENDING
+  SENT
+  FAILED
+  BOUNCED
 }
 
 enum Role {

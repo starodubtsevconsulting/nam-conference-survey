@@ -1,4 +1,4 @@
-import { IsOptional, IsObject } from 'class-validator';
+import { IsOptional, IsObject, IsEmail } from 'class-validator';
 import {
   OptionalString,
   OptionalInt,
@@ -13,6 +13,11 @@ import {
 } from '../constants/validation.constants';
 
 export class CreateSurveyResponseDto {
+  // Email for confirmation (optional)
+  @IsOptional()
+  @IsEmail({}, { message: 'Invalid email format' })
+  email?: string;
+
   // Q1: Overall conference rating (Likert 1-5)
   @OptionalInt(1, 5)
   q1OverallRating?: number;
