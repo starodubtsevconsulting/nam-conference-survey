@@ -23,6 +23,25 @@ services:
       retries: 5
 
   # ==========================================================================
+  # Redis (for Bull queue)
+  # ==========================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: nam-survey-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - nam-survey-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ==========================================================================
   # Backend (NestJS + Prisma)
   # ==========================================================================
   backend:
@@ -37,6 +56,15 @@ services:
       CI: "true"
       DATABASE_URL: postgresql://postgres:password@postgres:5432/nam_survey?schema=public
       FRONTEND_URL: http://localhost:3000
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      EMAIL_PROVIDER: ethereal
+      SURVEY_NAME: NAM Conference 2025 Feedback
+      RESULTS_TIMELINE: Survey results will be published after the conference on December 15, 2025.
+      RESULTS_URL: https://equalexperts.com/nam-conference-results
+      CONTACT_EMAIL: nam-conference@equalexperts.com
+      EMAIL_FROM_ADDRESS: noreply@equalexperts.com
+      EMAIL_FROM_NAME: Equal Experts NAM Conference
     ports:
       - "3001:3001"
     volumes:
@@ -44,6 +72,8 @@ services:
       - backend_node_modules:/app/node_modules
     depends_on:
       postgres:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     networks:
       - nam-survey-network
@@ -86,6 +116,8 @@ networks:
 # ============================================================================
 volumes:
   postgres_data:
+    driver: local
+  redis_data:
     driver: local
   backend_node_modules:
     driver: local
